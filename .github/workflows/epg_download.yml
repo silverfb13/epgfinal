@@ -1,0 +1,28 @@
+name: Baixar EPG XML a cada hora
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Executa de hora em hora
+  workflow_dispatch:
+
+jobs:
+  download_epg:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: Baixar EPG XML
+        run: |
+          curl -L "http://minhatv.eu/xmltv.php?username=40937276&password=67063536&type=xml" -o guide.xml
+
+      - name: Fazer commit e push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add guide.xml
+          git commit -m "EPG atualizado automaticamente"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
