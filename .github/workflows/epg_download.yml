@@ -15,7 +15,7 @@ jobs:
 
       - name: Baixar EPG XML do link externo
         run: |
-          curl -sSL --output guide.xml "http://minhatv.eu/xmltv.php?username=40937276&password=67063536&type=xml"
+          curl -sSL --output guide.xml "http://vortextv.shop/xmltv.php?username=rosangela&password=rosangela&type=xml"
 
       - name: Configurar Git
         run: |
